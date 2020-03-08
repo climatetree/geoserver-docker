@@ -1,2 +1,2 @@
 FROM kartoza/geoserver
-COPY . .
+COPY /tocpy/workspaces/ /opt/geoserver/data_dir/workspaces/
