@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/css/ol.css" type="text/css">
+    <style>
+      .map {
+        height: 400px;
+        width: 100%;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/build/ol.js"></script>
+    <title>OpenLayers example</title>
+  </head>
+  <body>
+    <h2>My Map</h2>
+    <div id="map" class="map"></div>
+    <div style="font-size: 1rem;">
+      <label for="popLow">Population Low:</label>
+      <input id="popLow" type="number" value="4000" name="popLow" step="1000">
+      <br>
+      <label for="popHigh">Population High:</label>
+      <input id="popHigh" type="number" name="popHigh" value="100000" step="1000">
+      <br>
+      <label for="densityLow">Population Density Low:</label>
+      <input id="densityLow" type="number" name="densityLow" value="250000" step="1000">
+      <br>
+      <label for="densityHigh">Population Density High:</label>
+      <input id="densityHigh" type="number" name="densityHigh" value="500000" step="1000">
+      <br>
+      <label for="carbonLow">Carbon Low:</label>
+      <input id="carbonLow" type="number" name="carbonLow" value="0" step="0.01">
+      <br>
+      <label for="carbonHigh">Carbon High:</label>
+      <input id="carbonHigh" type="number" name="carbonHigh" value="0.08" step="0.01">
+      <br>
+      <label for="percapCarbonLow">Per Capita Carbon Low:</label>
+      <input id="percapCarbonLow" type="number" name="percapCarbonLow" value="0.000002" step="0.0000001">
+      <br>
+      <label for="percapCarbonHigh">Per Capita Carbon High:</label>
+      <input id="percapCarbonHigh" type="number" name="percapCarbonHigh" value="0.000006" step="0.0000001">
+      <br>
+      <label for="typeId">Type Id:</label>
+      <input id="typeId" type="number" min="1" max="4" value="4" step="1">
+      <br>
+    </div>
+    <button style="background-color: crimson; font-size: 16px; color: honeydew;" onclick="getNewPlaces()">Get New Places</button>
+    <script type="text/javascript">
+    var vectorSource = new ol.source.Vector({
+      format: new ol.format.GeoJSON()
+    });
+    var vector = new ol.layer.Vector({
+      source: vectorSource,
+    })
+      var map = new ol.Map({
+        target: 'map',
+        layers: [
+        new ol.layer.Tile({
+            source: new ol.source.OSM(),
+        }),
+          vector
+        ],
+        view: new ol.View({
+          zoom: 1
+        })
+      });
+    // var layers = [
+        // new ol.layer.Image({
+        //     source: new ol.source.ImageWMS({
+        //     url: 'http://localhost:8080/geoserver/earthquakeTest/wms',
+        //     params: {'LAYERS': 'earthquakeTest:QuakesByPlace'},
+        //     ratio: 1,
+        //     serverType: 'geoserver'
+        //     })
+        // })
+  // var featureRequest = new WFS().writeGetFeature({
+  //   srsName: 'EPSG:4326',
+  //   featureNS: 'http://openstreemap.org',
+  //   featurePrefix: 'osm',
+  //   featureTypes: ['water_areas'],
+  //   outputFormat: 'application/json',
+  //   filter: andFilter(
+  //     likeFilter('name', 'Mississippi*'),
+  //     equalToFilter('waterway', 'riverbank')
+  //   )
+  // });
+let popLow = '';
+let popHigh = '';
+let densityLow = '';
+let densityHigh = '';
+let carbonLow = '';
+let carbonHigh = '';
+let percapCarbonLow = '';
+let percapCarbonHigh = '';
+let typeId = '';
+
+
+function getNewPlaces() {
+  console.log("HELLO")
+  popLow = document.getElementById('popLow').value;
+  popHigh = document.getElementById('popHigh').value;
+  densityLow = document.getElementById('densityLow').value;
+  densityHigh = document.getElementById('densityHigh').value;
+  carbonLow = document.getElementById('carbonLow').value;
+  carbonHigh = document.getElementById('carbonHigh').value;
+  percapCarbonLow = document.getElementById('percapCarbonLow').value;
+  percapCarbonHigh = document.getElementById('percapCarbonHigh').value;
+  typeId = document.getElementById('typeId').value;
+  console.log(popLow)
+  let url = 'https://climatetree-geoserver.azurewebsites.net/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=ClimateTree:Similar_Places&outputFormat=application/json&viewparams=';
+  if (popLow != '') {
+    url += `POPULATION_LOW:${popLow.toString()};`
+  }
+  if (popHigh != '') {
+    url += `POPULATION_HIGH:${popHigh.toString()};`
+  }
+  if (densityLow != '') {
+    url += `POPULATION_DENSITY_LOW:${densityLow.toString()};`
+  }
+  if (densityHigh != '') {
+    url += `POPULATION_DENSITY_HIGH:${densityHigh.toString()};`
+  }
+  if (carbonLow != '') {
+    url += `CARBON_LOW:${carbonLow.toString()};`
+  }
+  if (carbonHigh != '') {
+    url += `CARBON_HIGH:${carbonHigh.toString()};`
+  }
+  if (percapCarbonLow != '') {
+    url += `PERCAP_CARBON_LOW:${percapCarbonLow.toString()};`
+  }
+  if (percapCarbonHigh != '') {
+    url += `PERCAP_CARBON_HIGH:${percapCarbonHigh.toString()};`
+  }
+  if (typeId != '') {
+    url += `TYPE_ID:${typeId.toString()};`
+  }
+  // then post the request and add the received features to a layer
+  let layers = vectorSource.getFeatures();
+  console.log(url);
+
+  if (layers.length > 0) {
+    vectorSource.clear()
+  }
+  fetch(url, {
+    method: 'GET',
+    // body: new XMLSerializer().serializeToString(featureRequest)
+  }).then(function(response) {
+    return response.json();
+    
+  }).then(function(json) {
+    console.log(json)
+    if (json.features.length == 0) {
+      console.error("NO DATA RETURNED FROM QUERY");
+      map.getView().fit(vectorSource.getExtent());
+    }
+    var features = new ol.format.GeoJSON().readFeatures(json, {
+      featureProjection: 'EPSG:3857'
+    });
+    vectorSource.addFeatures(features);
+    map.getView().fit(vectorSource.getExtent());
+  }).catch(function(err){
+    console.error(err);
+  });
+}
+    // ];
+    //   let earthquakes = new ol.layer.Image({
+    //       source:new ol:source.ImageWMS({
+    //           url:'http://localhost:8080/geoserver/earthquakeTest/wms',
+    //           params:{'LAYERS': 'earthquakeTest%3Aearthquakes_twoday_csv'},
+    //           serverType:'geoserver'
+    //       })
+    //   });
+      // map.addLayer(layers[0]);
+    </script>
+  </body>
+</html>
