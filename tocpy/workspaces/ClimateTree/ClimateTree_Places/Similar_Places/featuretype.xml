@@ -78,7 +78,10 @@ LEFT JOIN public.&quot;FUEL_TYPES&quot; as ft ON place.place_id = ft.place_id&#x
 WHERE&#xd;
   place.population &gt;= %POPULATION_LOW%&#xd;
 and place.population &lt;= %POPULATION_HIGH%&#xd;
-  and place.type_id=%TYPE_ID%&#xd;
+  and (place.type_id = %TYPE_ID_1% OR&#xd;
+          place.type_id = %TYPE_ID_2% OR&#xd;
+          place.type_id = %TYPE_ID_3% OR&#xd;
+          place.type_id = %TYPE_ID_4%)&#xd;
   and place.carbon &gt;= %CARBON_LOW%&#xd;
   and place.carbon &lt;= %CARBON_HIGH%&#xd;
   and place.percapcarb &gt;= %PERCAP_CARBON_LOW%&#xd;
@@ -93,18 +96,8 @@ and place.population &lt;= %POPULATION_HIGH%&#xd;
           <srid>4326</srid>
         </geometry>
         <parameter>
-          <name>TYPE_ID</name>
-          <defaultValue>4</defaultValue>
-          <regexpValidator>^[\d]+$</regexpValidator>
-        </parameter>
-        <parameter>
           <name>POPULATION_DENSITY_HIGH</name>
           <defaultValue>3000000000.00</defaultValue>
-          <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
-        </parameter>
-        <parameter>
-          <name>PERCAP_CARBON_LOW</name>
-          <defaultValue>-100.00</defaultValue>
           <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
         </parameter>
         <parameter>
@@ -113,18 +106,8 @@ and place.population &lt;= %POPULATION_HIGH%&#xd;
           <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
         </parameter>
         <parameter>
-          <name>CARBON_LOW</name>
-          <defaultValue>-100.00</defaultValue>
-          <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
-        </parameter>
-        <parameter>
           <name>POPULATION_DENSITY_LOW</name>
           <defaultValue>-1.00</defaultValue>
-          <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
-        </parameter>
-        <parameter>
-          <name>PERCAP_CARBON_HIGH</name>
-          <defaultValue>1000000.00</defaultValue>
           <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
         </parameter>
         <parameter>
@@ -133,9 +116,44 @@ and place.population &lt;= %POPULATION_HIGH%&#xd;
           <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
         </parameter>
         <parameter>
+          <name>PERCAP_CARBON_LOW</name>
+          <defaultValue>-100.00</defaultValue>
+          <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
+        </parameter>
+        <parameter>
+          <name>CARBON_LOW</name>
+          <defaultValue>-100.00</defaultValue>
+          <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
+        </parameter>
+        <parameter>
+          <name>TYPE_ID_1</name>
+          <defaultValue>0</defaultValue>
+          <regexpValidator>^[\d]+$</regexpValidator>
+        </parameter>
+        <parameter>
+          <name>TYPE_ID_2</name>
+          <defaultValue>0</defaultValue>
+          <regexpValidator>^[\d]+$</regexpValidator>
+        </parameter>
+        <parameter>
+          <name>PERCAP_CARBON_HIGH</name>
+          <defaultValue>1000000.00</defaultValue>
+          <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
+        </parameter>
+        <parameter>
           <name>POPULATION_HIGH</name>
           <defaultValue>3000000000.00</defaultValue>
           <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
+        </parameter>
+        <parameter>
+          <name>TYPE_ID_3</name>
+          <defaultValue>0</defaultValue>
+          <regexpValidator>^[\d]+$</regexpValidator>
+        </parameter>
+        <parameter>
+          <name>TYPE_ID_4</name>
+          <defaultValue>0</defaultValue>
+          <regexpValidator>^[\d]+$</regexpValidator>
         </parameter>
       </virtualTable>
     </entry>
