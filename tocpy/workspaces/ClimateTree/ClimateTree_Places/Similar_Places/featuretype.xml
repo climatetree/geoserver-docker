@@ -46,7 +46,7 @@
   population,&#xd;
   carbon,&#xd;
   percapcarb,&#xd;
-  popdensity,&#xd;
+  population_density_per_sq_km as popdensity,&#xd;
   point,&#xd;
   ft.biomass,&#xd;
   ft.coal,&#xd;
@@ -96,11 +96,6 @@ and place.population &lt;= %POPULATION_HIGH%&#xd;
           <srid>4326</srid>
         </geometry>
         <parameter>
-          <name>POPULATION_DENSITY_HIGH</name>
-          <defaultValue>3000000000.00</defaultValue>
-          <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
-        </parameter>
-        <parameter>
           <name>CARBON_HIGH</name>
           <defaultValue>1000000.00</defaultValue>
           <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
@@ -108,6 +103,11 @@ and place.population &lt;= %POPULATION_HIGH%&#xd;
         <parameter>
           <name>POPULATION_DENSITY_LOW</name>
           <defaultValue>-1.00</defaultValue>
+          <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
+        </parameter>
+        <parameter>
+          <name>POPULATION_DENSITY_HIGH</name>
+          <defaultValue>3000000000.00</defaultValue>
           <regexpValidator>^[\d\.\+-eE]+$</regexpValidator>
         </parameter>
         <parameter>
@@ -157,6 +157,7 @@ and place.population &lt;= %POPULATION_HIGH%&#xd;
         </parameter>
       </virtualTable>
     </entry>
+    <entry key="cachingEnabled">false</entry>
   </metadata>
   <store class="dataStore">
     <id>DataStoreInfoImpl-b3eb131:170bafa50e4:-7fbb</id>
