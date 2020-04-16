@@ -28,14 +28,10 @@
   <onlineResource>http://geoserver.org</onlineResource>
   <schemaBaseURL>http://schemas.opengis.net</schemaBaseURL>
   <verbose>false</verbose>
+  <metadata>
+    <entry key="SHAPE-ZIP_DEFAULT_PRJ_IS_ESRI">false</entry>
+  </metadata>
   <gml>
-    <entry>
-      <version>V_10</version>
-      <gml>
-        <srsNameStyle>XML</srsNameStyle>
-        <overrideGMLAttributes>true</overrideGMLAttributes>
-      </gml>
-    </entry>
     <entry>
       <version>V_11</version>
       <gml>
@@ -50,9 +46,16 @@
         <overrideGMLAttributes>false</overrideGMLAttributes>
       </gml>
     </entry>
+    <entry>
+      <version>V_10</version>
+      <gml>
+        <srsNameStyle>XML</srsNameStyle>
+        <overrideGMLAttributes>true</overrideGMLAttributes>
+      </gml>
+    </entry>
   </gml>
-  <serviceLevel>COMPLETE</serviceLevel>
-  <maxFeatures>1000000</maxFeatures>
+  <serviceLevel>BASIC</serviceLevel>
+  <maxFeatures>200</maxFeatures>
   <featureBounding>false</featureBounding>
   <canonicalSchemaLocation>false</canonicalSchemaLocation>
   <encodeFeatureMember>false</encodeFeatureMember>
