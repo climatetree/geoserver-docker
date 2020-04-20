@@ -13,8 +13,8 @@
     <entry key="encode functions">true</entry>
     <entry key="Batch insert size">1</entry>
     <entry key="preparedStatements">false</entry>
-    <entry key="database">postgres</entry>
-    <entry key="host">places-postgresdb.postgres.database.azure.com</entry>
+    <entry key="database">places_db</entry>
+    <entry key="host">climatetree-postgresdb.postgres.database.azure.com</entry>
     <entry key="Loose bbox">true</entry>
     <entry key="SSL mode">REQUIRE</entry>
     <entry key="Estimated extends">true</entry>
@@ -29,10 +29,10 @@
     <entry key="min connections">20</entry>
     <entry key="dbtype">postgis</entry>
     <entry key="namespace">ClimateTree</entry>
-    <entry key="max connections">90</entry>
+    <entry key="max connections">100</entry>
     <entry key="Evictor tests per run">3</entry>
     <entry key="Test while idle">true</entry>
-    <entry key="user">climatetreeops@places-postgresdb</entry>
+    <entry key="user">climatetree@climatetree-postgresdb</entry>
     <entry key="Max connection idle time">300</entry>
   </connectionParameters>
   <__default>false</__default>
