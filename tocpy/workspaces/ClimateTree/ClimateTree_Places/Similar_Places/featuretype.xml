@@ -87,7 +87,8 @@ and place.population &lt;= %POPULATION_HIGH%&#xd;
   and place.percapcarb &gt;= %PERCAP_CARBON_LOW%&#xd;
   and place.percapcarb &lt;= %PERCAP_CARBON_HIGH%&#xd;
   and place.popdensity &gt;= %POPULATION_DENSITY_LOW%&#xd;
-  and place.popdensity &lt;= %POPULATION_DENSITY_HIGH%
+  and place.popdensity &lt;= %POPULATION_DENSITY_HIGH%&#xd;
+LIMIT 200
 </sql>
         <escapeSql>false</escapeSql>
         <geometry>
